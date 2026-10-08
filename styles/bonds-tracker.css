@@ -1,0 +1,311 @@
+/* =====================================================================
+   CoC7 – Suivi des Bonds du groupe
+   Habillage Art Déco assorti aux modules Chance/Santé Mentale.
+   ===================================================================== */
+
+.coc7-bonds-tracker {
+  --coc-ink: #14110d;
+  --coc-ink-2: #1e1911;
+  --coc-parchment: #ede3cb;
+  --coc-gold: #c9a227;
+  --coc-gold-light: #ecd27a;
+  --coc-gold-dim: rgba(201, 162, 39, 0.35);
+  --coc-teal: #4fb6ac;
+  --coc-teal-light: #8fe0d6;
+  --coc-crimson: #9c2b2b;
+  --coc-crimson-light: #e2746a;
+  --coc-option-text: #1c1710;
+  --coc-option-bg: #f2e9d0;
+
+  background: linear-gradient(165deg, var(--coc-ink) 0%, var(--coc-ink-2) 100%);
+  color: var(--coc-parchment);
+  padding: 10px 12px 12px;
+  border: 1px solid var(--coc-gold-dim);
+  border-radius: 2px;
+  font-family: "Signika", "Palatino Linotype", Georgia, serif;
+}
+
+/* ---- Fronton décoratif ---- */
+.coc7-deco-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.coc7-deco-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--coc-gold), transparent);
+}
+.coc7-deco-diamond {
+  color: var(--coc-gold);
+  font-size: 11px;
+  transform: scale(1, 1.3);
+}
+
+/* ---- Groupes / Époques ---- */
+.coc7-bonds-group {
+  margin-bottom: 14px;
+  padding: 8px 10px 10px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid var(--coc-gold-dim);
+  position: relative;
+}
+.coc7-bonds-group::before,
+.coc7-bonds-group::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--coc-gold);
+  top: -1px;
+}
+.coc7-bonds-group::before { left: -1px; border-right: none; border-bottom: none; }
+.coc7-bonds-group::after  { right: -1px; border-left: none; border-bottom: none; }
+
+.coc7-bonds-group-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px double var(--coc-gold-dim);
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+.coc7-bonds-group-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  color: var(--coc-gold-light);
+  text-shadow: 0 0 6px rgba(201, 162, 39, 0.25);
+}
+.coc7-bonds-group-sub {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--coc-gold-dim);
+  font-variant: small-caps;
+  white-space: nowrap;
+}
+
+.coc7-bonds-group.era-modern {
+  border-color: rgba(79, 182, 172, 0.35);
+}
+.coc7-bonds-group.era-modern .coc7-bonds-group-title {
+  color: var(--coc-teal-light);
+  text-shadow: 0 0 6px rgba(79, 182, 172, 0.25);
+}
+.coc7-bonds-group.era-modern::before,
+.coc7-bonds-group.era-modern::after {
+  border-color: var(--coc-teal);
+}
+.coc7-bonds-group.era-modern .coc7-bonds-group-header {
+  border-bottom-color: rgba(79, 182, 172, 0.35);
+}
+.coc7-bonds-group.era-unassigned .coc7-bonds-group-title {
+  color: #a8a297;
+  text-shadow: none;
+}
+
+/* ---- Bloc par investigateur ---- */
+.coc7-bonds-actor {
+  margin-bottom: 10px;
+  padding: 6px 8px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(201, 162, 39, 0.18);
+}
+.coc7-bonds-actor:last-child {
+  margin-bottom: 0;
+}
+
+.coc7-bonds-actor-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.coc7-bonds-portrait {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 3px;
+  border: 1px solid var(--coc-gold-dim);
+}
+.coc7-bonds-actor-name {
+  flex: 1;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--coc-gold-light);
+}
+.coc7-bonds-actor-count {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--coc-gold-dim);
+  border: 1px solid var(--coc-gold-dim);
+  border-radius: 8px;
+  padding: 1px 7px;
+}
+
+/* ---- Liste des Bonds ---- */
+.coc7-bonds-list {
+  list-style: none;
+  margin: 0 0 6px;
+  padding: 0;
+}
+.coc7-bond-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.12);
+}
+.coc7-bond-item:last-child {
+  border-bottom: none;
+}
+.coc7-bond-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.coc7-bond-name {
+  font-size: 13px;
+  color: var(--coc-parchment);
+}
+.coc7-bond-note {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--coc-gold-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coc7-bond-broken .coc7-bond-name {
+  color: var(--coc-crimson-light);
+  text-decoration: line-through;
+  text-decoration-color: var(--coc-crimson);
+}
+.coc7-bond-broken {
+  background: rgba(156, 43, 43, 0.12);
+}
+
+.coc7-bond-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.coc7-bond-toggle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: transparent;
+  border: 1px solid var(--coc-gold-dim);
+  color: var(--coc-gold-light);
+  border-radius: 1px;
+  padding: 2px 6px;
+  cursor: pointer;
+}
+.coc7-bond-toggle:hover {
+  border-color: var(--coc-gold);
+  background: rgba(201, 162, 39, 0.12);
+}
+.coc7-bond-broken .coc7-bond-toggle {
+  border-color: var(--coc-crimson);
+  color: var(--coc-crimson-light);
+}
+.coc7-bond-broken .coc7-bond-toggle:hover {
+  background: rgba(156, 43, 43, 0.18);
+}
+
+.coc7-bond-delete {
+  background: transparent;
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  color: var(--coc-gold-dim);
+  border-radius: 1px;
+  width: 20px;
+  height: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+.coc7-bond-delete:hover {
+  border-color: var(--coc-crimson);
+  color: var(--coc-crimson-light);
+}
+
+.coc7-bond-empty {
+  font-size: 11px;
+  font-style: italic;
+  opacity: 0.7;
+  padding: 4px 6px;
+}
+
+/* ---- Formulaire d'ajout ---- */
+.coc7-bond-add-form {
+  display: flex;
+  gap: 4px;
+}
+.coc7-bond-input-name,
+.coc7-bond-input-note {
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--coc-parchment);
+  border: 1px solid var(--coc-gold-dim);
+  border-radius: 1px;
+  padding: 3px 6px;
+  font-size: 11px;
+}
+.coc7-bond-input-name {
+  flex: 1;
+}
+.coc7-bond-input-note {
+  flex: 1.4;
+}
+.coc7-bond-input-name:focus,
+.coc7-bond-input-note:focus {
+  border-color: var(--coc-gold);
+  outline: none;
+}
+.coc7-bond-add-btn {
+  width: 26px;
+  background: transparent;
+  border: 1px solid var(--coc-gold);
+  color: var(--coc-gold-light);
+  border-radius: 1px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.coc7-bond-add-btn:hover {
+  background: var(--coc-gold);
+  color: var(--coc-ink);
+}
+
+.coc7-bonds-empty {
+  text-align: center;
+  font-style: italic;
+  opacity: 0.75;
+  margin: 14px 0;
+}
+
+/* ---- Bouton Actualiser ---- */
+.coc7-bonds-refresh {
+  width: 100%;
+  margin-top: 4px;
+  background: transparent;
+  color: var(--coc-gold-light);
+  border: 1px solid var(--coc-gold);
+  border-radius: 1px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 11px;
+  padding: 5px 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.coc7-bonds-refresh:hover {
+  background: var(--coc-gold);
+  color: var(--coc-ink);
+}
+.coc7-bonds-refresh-icon {
+  margin-right: 4px;
+}

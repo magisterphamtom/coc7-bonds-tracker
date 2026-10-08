@@ -1,0 +1,60 @@
+<section class="coc7-bonds-tracker">
+  <div class="coc7-deco-banner">
+    <span class="coc7-deco-line"></span>
+    <span class="coc7-deco-diamond">&#9670;</span>
+    <span class="coc7-deco-line"></span>
+  </div>
+
+  {{#if hasActors}}
+    {{#each groups as |g|}}
+      <div class="coc7-bonds-group {{g.cssKey}}">
+        <div class="coc7-bonds-group-header">
+          <h3 class="coc7-bonds-group-title">{{localize g.label}}</h3>
+          {{#if g.sub}}<span class="coc7-bonds-group-sub">{{g.sub}}</span>{{/if}}
+        </div>
+
+        {{#each g.actors as |a|}}
+          <div class="coc7-bonds-actor">
+            <div class="coc7-bonds-actor-header">
+              <img class="coc7-bonds-portrait" src="{{a.img}}" alt="{{a.name}}" />
+              <span class="coc7-bonds-actor-name">{{a.name}}</span>
+              <span class="coc7-bonds-actor-count">{{a.intactCount}}/{{a.totalCount}}</span>
+            </div>
+
+            <ul class="coc7-bonds-list">
+              {{#each a.bonds as |b|}}
+                <li class="coc7-bond-item {{#if b.broken}}coc7-bond-broken{{/if}}">
+                  <div class="coc7-bond-text">
+                    <span class="coc7-bond-name">{{b.name}}</span>
+                    {{#if b.note}}<span class="coc7-bond-note">{{b.note}}</span>{{/if}}
+                  </div>
+                  <div class="coc7-bond-actions">
+                    <button type="button" class="coc7-bond-toggle" data-action="toggleBond" data-actor-id="{{a.id}}" data-bond-id="{{b.id}}">
+                      {{#if b.broken}}{{localize "COC7BONDS.Restore"}}{{else}}{{localize "COC7BONDS.Break"}}{{/if}}
+                    </button>
+                    <button type="button" class="coc7-bond-delete" data-action="deleteBond" data-actor-id="{{a.id}}" data-bond-id="{{b.id}}" title="{{localize 'COC7BONDS.Delete'}}">&times;</button>
+                  </div>
+                </li>
+              {{else}}
+                <li class="coc7-bond-empty">{{localize "COC7BONDS.NoBonds"}}</li>
+              {{/each}}
+            </ul>
+
+            <form class="coc7-bond-add-form" data-actor-id="{{a.id}}">
+              <input type="text" class="coc7-bond-input-name" placeholder="{{localize 'COC7BONDS.NamePlaceholder'}}" required />
+              <input type="text" class="coc7-bond-input-note" placeholder="{{localize 'COC7BONDS.NotePlaceholder'}}" />
+              <button type="submit" class="coc7-bond-add-btn" title="{{localize 'COC7BONDS.Add'}}">+</button>
+            </form>
+          </div>
+        {{/each}}
+      </div>
+    {{/each}}
+  {{else}}
+    <p class="coc7-bonds-empty">{{localize "COC7BONDS.NoActors"}}</p>
+  {{/if}}
+
+  <button type="button" data-action="refresh" class="coc7-bonds-refresh">
+    <span class="coc7-bonds-refresh-icon"><i class="fa-solid fa-rotate"></i></span>
+    {{localize "COC7BONDS.Refresh"}}
+  </button>
+</section>

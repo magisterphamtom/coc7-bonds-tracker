@@ -1,0 +1,18 @@
+{
+  "COC7BONDS": {
+    "ButtonTitle": "Party Bonds",
+    "WindowTitle": "Investigators' Bonds",
+    "Era1933": "1933 – Starkweather-Moore Expedition",
+    "EraModern": "2025-2026 – Descendants",
+    "EraUnassigned": "Unassigned",
+    "Break": "Break",
+    "Restore": "Restore",
+    "Delete": "Delete",
+    "Add": "Add",
+    "NamePlaceholder": "Bond name (e.g. his sister Claire)",
+    "NotePlaceholder": "Note (optional)",
+    "NoBonds": "No Bond recorded.",
+    "NoActors": "No player character found.",
+    "Refresh": "Refresh"
+  }
+}
