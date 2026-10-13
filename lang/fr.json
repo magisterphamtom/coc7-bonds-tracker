@@ -13,6 +13,11 @@
     "NotePlaceholder": "Note (facultatif)",
     "NoBonds": "Aucun Bond enregistré.",
     "NoActors": "Aucun personnage joueur trouvé.",
-    "Refresh": "Actualiser"
+    "Refresh": "Actualiser",
+    "FilterLabel": "Époque affichée",
+    "Filter1933": "1933",
+    "FilterModern": "2025-2026",
+    "FilterAll": "Les deux",
+    "FilteredEmpty": "Aucun investigateur pour cette époque."
   }
 }

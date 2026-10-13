@@ -46,3 +46,7 @@ installé — pas besoin de la refaire.
   `scripts/bonds-tracker.js`, ligne `visible: game.user.isGM,` →
   remplacez par `visible: true,`.
 - **Couleurs** : variables CSS en tête de `styles/bonds-tracker.css`.
+
+## Nouveautés 1.2.0
+- Choix de l'époque affichée en haut de la fenêtre : **1933**, **2025-2026** ou **Les deux** (partagé avec les fenêtres Chance et Santé Mentale, mémorisé pour chaque utilisateur).
+- Fenêtre de taille fixe avec barre de défilement ; le choix d'époque reste visible en haut et la position est conservée à chaque modification.

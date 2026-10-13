@@ -5,6 +5,13 @@
     <span class="coc7-deco-line"></span>
   </div>
 
+  <nav class="coc7-era-filter" aria-label="{{localize 'COC7BONDS.FilterLabel'}}">
+    <span class="coc7-era-filter-label">{{localize "COC7BONDS.FilterLabel"}}</span>
+    {{#each eraFilters as |f|}}
+      <button type="button" class="coc7-era-filter-btn{{#if f.active}} active{{/if}}" data-action="setEraFilter" data-era="{{f.key}}">{{localize f.label}}</button>
+    {{/each}}
+  </nav>
+
   {{#if hasActors}}
     {{#each groups as |g|}}
       <div class="coc7-bonds-group {{g.cssKey}}">
@@ -49,6 +56,7 @@
         {{/each}}
       </div>
     {{/each}}
+    {{#if filteredEmpty}}<p class="coc7-bonds-empty">{{localize "COC7BONDS.FilteredEmpty"}}</p>{{/if}}
   {{else}}
     <p class="coc7-bonds-empty">{{localize "COC7BONDS.NoActors"}}</p>
   {{/if}}

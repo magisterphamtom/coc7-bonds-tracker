@@ -13,6 +13,11 @@
     "NotePlaceholder": "Note (optional)",
     "NoBonds": "No Bond recorded.",
     "NoActors": "No player character found.",
-    "Refresh": "Refresh"
+    "Refresh": "Refresh",
+    "FilterLabel": "Era shown",
+    "Filter1933": "1933",
+    "FilterModern": "2025-2026",
+    "FilterAll": "Both",
+    "FilteredEmpty": "No investigator for this era."
   }
 }

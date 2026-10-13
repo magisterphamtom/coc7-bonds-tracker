@@ -309,3 +309,84 @@
 .coc7-bonds-refresh-icon {
   margin-right: 4px;
 }
+
+/* ---- Filtre d'époque (1933 / 2025-2026 / les deux) ---- */
+.coc7-bonds-tracker .coc7-era-filter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: -2px 0 10px;
+}
+.coc7-bonds-tracker .coc7-era-filter-label {
+  flex: 1;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--coc-gold, #c9a227);
+}
+.coc7-bonds-tracker .coc7-era-filter-btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 64px;
+  height: 24px;
+  line-height: 22px;
+  padding: 0 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--coc-parchment, #ede3cb);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--coc-gold-dim, rgba(201, 162, 39, 0.35));
+  border-radius: 2px;
+  cursor: pointer;
+}
+.coc7-bonds-tracker .coc7-era-filter-btn:hover {
+  border-color: var(--coc-gold, #c9a227);
+  box-shadow: none;
+}
+.coc7-bonds-tracker .coc7-era-filter-btn.active {
+  color: var(--coc-ink, #14110d);
+  background: linear-gradient(180deg, var(--coc-gold-light, #ecd27a), var(--coc-gold, #c9a227));
+  border-color: var(--coc-gold, #c9a227);
+}
+.coc7-bonds-tracker .coc7-era-filter-btn[data-era="modern"].active {
+  background: linear-gradient(180deg, var(--coc-teal-light, #8fe0d6), var(--coc-teal, #4fb6ac));
+  border-color: var(--coc-teal, #4fb6ac);
+}
+
+/* ---- Barre de défilement : la fenêtre garde sa taille, la liste défile ---- */
+#coc7-bonds-tracker-app .window-content {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+#coc7-bonds-tracker-app .coc7-bonds-tracker {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  scrollbar-width: auto;
+  scrollbar-color: var(--coc-gold, #c9a227) rgba(0, 0, 0, 0.45);
+}
+#coc7-bonds-tracker-app .coc7-bonds-tracker::-webkit-scrollbar { width: 12px; }
+#coc7-bonds-tracker-app .coc7-bonds-tracker::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.45);
+  border-left: 1px solid var(--coc-gold-dim, rgba(201, 162, 39, 0.35));
+}
+#coc7-bonds-tracker-app .coc7-bonds-tracker::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, var(--coc-gold, #c9a227), var(--coc-gold-light, #ecd27a));
+  border: 2px solid #14110d;
+  border-radius: 6px;
+  min-height: 40px;
+}
+/* Le choix d'époque reste visible en haut pendant le défilement */
+#coc7-bonds-tracker-app .coc7-era-filter {
+  position: sticky;
+  top: -10px;
+  z-index: 2;
+  margin: 0 -12px 10px;
+  padding: 8px 12px;
+  background: linear-gradient(165deg, var(--coc-ink, #14110d), var(--coc-ink-2, #1e1911));
+  border-bottom: 1px solid var(--coc-gold-dim, rgba(201, 162, 39, 0.35));
+}

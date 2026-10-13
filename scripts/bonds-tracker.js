@@ -19,6 +19,30 @@ const ERA_DEFS = [
 ];
 
 /* ------------------------------------------------------------------ */
+/*  Filtre d'époque affichée (1933 / 2025-2026 / les deux)             */
+/*  Partagé par Chance, Santé Mentale et Bonds : choisi une fois,      */
+/*  il s'applique aux trois fenêtres. Mémorisé pour chaque utilisateur.*/
+/* ------------------------------------------------------------------ */
+const ERA_FILTER_KEY = "eraFilter";
+const ERA_FILTERS = ["1933", "modern", "all"];
+
+function eraFilterScope() {
+  return game.modules.get("coc7-luck-tracker")?.active ? "coc7-luck-tracker" : MODULE_ID;
+}
+
+function getEraFilter() {
+  let value;
+  try { value = game.user.getFlag(eraFilterScope(), ERA_FILTER_KEY); } catch (err) { value = null; }
+  return ERA_FILTERS.includes(value) ? value : "all";
+}
+
+/** Une époque est affichée si elle correspond au filtre ; les non-assignés restent toujours visibles. */
+function isEraShown(eraKey, filter) {
+  return filter === "all" || eraKey === filter || eraKey === "unassigned";
+}
+
+
+/* ------------------------------------------------------------------ */
 /*  Lecture / écriture des Bonds sur une fiche d'acteur                */
 /* ------------------------------------------------------------------ */
 function getBonds(docActor) {
@@ -101,21 +125,27 @@ class BondsTrackerApp extends foundry.applications.api.HandlebarsApplicationMixi
       icon: "fa-solid fa-link",
       resizable: true
     },
-    position: { width: 420, height: "auto" },
+    position: { width: 440, height: 680 },
     actions: {
       refresh: BondsTrackerApp.onRefresh,
+      setEraFilter: BondsTrackerApp.onSetEraFilter,
       toggleBond: BondsTrackerApp.onToggleBond,
       deleteBond: BondsTrackerApp.onDeleteBond
     }
   };
 
   static PARTS = {
-    content: { template: `modules/${MODULE_ID}/templates/bonds-tracker.hbs` }
+    content: {
+      template: `modules/${MODULE_ID}/templates/bonds-tracker.hbs`,
+      // la liste défile dans la fenêtre ; la position est conservée à chaque mise à jour
+      scrollable: [""]
+    }
   };
 
   /** @override */
   async _prepareContext(_options) {
     const rawActors = getTrackedActors();
+    const eraFilter = getEraFilter();
 
     const groupsMap = new Map(ERA_DEFS.map((d) => [d.key, []]));
     for (const a of rawActors) {
@@ -128,11 +158,17 @@ class BondsTrackerApp extends foundry.applications.api.HandlebarsApplicationMixi
       label: def.label,
       sub: def.sub,
       actors: groupsMap.get(def.key) ?? []
-    })).filter((g) => g.actors.length > 0);
+    })).filter((g) => g.actors.length > 0 && isEraShown(g.key, eraFilter));
 
     return {
       groups,
-      hasActors: rawActors.length > 0
+      hasActors: rawActors.length > 0,
+      filteredEmpty: rawActors.length > 0 && groups.length === 0,
+      eraFilters: [
+        { key: "1933", label: "COC7BONDS.Filter1933", active: eraFilter === "1933" },
+        { key: "modern", label: "COC7BONDS.FilterModern", active: eraFilter === "modern" },
+        { key: "all", label: "COC7BONDS.FilterAll", active: eraFilter === "all" }
+      ]
     };
   }
 
@@ -154,6 +190,17 @@ class BondsTrackerApp extends foundry.applications.api.HandlebarsApplicationMixi
   }
 
   static onRefresh(_event, _target) {
+    this.render();
+  }
+
+  static async onSetEraFilter(_event, target) {
+    const era = target.dataset.era;
+    if (!ERA_FILTERS.includes(era)) return;
+    try {
+      await game.user.setFlag(eraFilterScope(), ERA_FILTER_KEY, era);
+    } catch (err) {
+      console.error(`${MODULE_ID} | impossible d'enregistrer le filtre d'époque`, err);
+    }
     this.render();
   }
 
@@ -188,6 +235,10 @@ Hooks.on("updateActor", (actor) => {
 });
 Hooks.on("createActor", (actor) => {
   if (appInstance?.rendered && actor.type === "character") appInstance.render();
+});
+Hooks.on("updateUser", (user, changes) => {
+  if (user.id !== game.user.id || !changes?.flags) return;
+  if (appInstance?.rendered) appInstance.render();
 });
 Hooks.on("deleteActor", (actor) => {
   if (appInstance?.rendered && actor.type === "character") appInstance.render();
