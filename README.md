@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/banner.png" alt="coc7-bonds-tracker" width="100%"></p>
+
 # CoC7 – Suivi des Bonds du groupe
 
 Module compagnon de **CoC7 – Suivi de Chance du groupe** et **CoC7 –
